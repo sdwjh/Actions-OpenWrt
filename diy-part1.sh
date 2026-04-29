@@ -10,6 +10,11 @@
 # See /LICENSE for more information.
 #
 
-# Add feed sources with full git URLs
+# Use different feed sources that support HTTPS without auth
 echo 'src-git helloworld https://github.com/fw876/helloworld.git' >>feeds.conf.default
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall.git' >>feeds.conf.default
+
+# PassWall uses different repo - openwrt-passwall-packages
+echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall-packages.git' >>feeds.conf.default
+
+# Disable release upload (fork doesn't have permission)
+sed -i 's/UPLOAD_RELEASE: true/UPLOAD_RELEASE: false/' $GITHUB_WORKSPACE/.github/workflows/openwrt-builder.yml
